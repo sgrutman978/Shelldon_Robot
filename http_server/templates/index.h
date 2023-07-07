@@ -1,11 +1,11 @@
-<!doctype html>
+const char MAIN_page[] PROGMEM = R"=====(
+  <!doctype html>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <style>
     .grid-container {
       display: grid;
       grid-template-columns: auto auto auto;
-      width: 180px;
+      width: 270px;
       padding: 10px;
     }
     .grid-item {
@@ -22,16 +22,20 @@
     .downSpeed{
       background-color: orange;
     }
+    .stop{
+      background-color: pink;
+    }
   </style>
+  <script>
+  function motorCommand(x) {
+    console.log("meheheh")
+     var xhr = new XMLHttpRequest();
+     xhr.open("GET", "/" + x, false);
+     xhr.send();
+     console.log(xhr.responseText);
+   }
+  </script>
 </head>
-
-<script>
- let exampleSocket = new WebSocket("ws://stevengrutman.com:56112");
-function motorCommand(command){
-  console.log("command:" + command)
-  exampleSocket.send(command);
-}
-</script>
 
 <title>Hello, my name is Shelldon</title>
 <a href="forward" target="myIframe">ON</a><br>
@@ -50,3 +54,11 @@ function motorCommand(command){
 </div>
 
 State:<iframe name="myIframe" width="100" height="25" frameBorder="0">
+
+    <div class="container">
+        <label for="left_speed">Left Speed:</label>
+        <input type="number" id="left_speed" min="0" max="100" value="50">
+        <label for="right_speed">Right Speed:</label>
+        <input type="number" id="right_speed" min="0" max="100" value="50">
+    </div>
+)=====";

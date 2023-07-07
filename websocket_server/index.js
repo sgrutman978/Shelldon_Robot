@@ -1,30 +1,27 @@
 const fs = require('fs');
-const https = require('https');
+const http = require('http');
 const WebSocket = require('ws');
 
 //CHANGE THE CERT FILE PATHS
-const server = https.createServer({
-  cert: fs.readFileSync('cert.pem'),
-  key: fs.readFileSync('privkey.pem')
-});
-const wss = new WebSocket.Server({ server});
+const server = http.createServer({});
+const ws = new WebSocket.Server({server});
 
 console.log("started web socket server...")
 
-wss.on('open', function open() {
+ws.on('open', function open() {
   console.log('connected');
 });
 
-wss.on('connection', function connection(ws) {
+ws.on('connection', function connection(wsInner) {
 
-  ws.send("some stuff");
+  wsInner.send("Connected to Websocket Server Beep Boop Bop");
 
-  ws.on('message', function incoming(message) {
+  wsInner.on('message', function incoming(message) {
 
     // sends the data to all connected clients
-    wss.clients.forEach((client) => {
+    ws.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-          client.send("ahahah");
+          client.send(message);
         }
     });
   });

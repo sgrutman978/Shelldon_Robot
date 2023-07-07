@@ -1,0 +1,72 @@
+<!doctype html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      width: 270px;
+      padding: 10px;
+    }
+    .grid-item {
+      /*background-color: rgba(255, 255, 255, 0.8);*/
+      background-color: #2196F3;
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+    .upSpeed{
+      background-color: green;
+    }
+    .downSpeed{
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<script>
+ let exampleSocket = new WebSocket("wss://stevengrutman.com:56112");
+function motorCommand(command){
+  console.log("ggg");
+  exampleSocket.send("Here's some text that the server is urgently awaiting!");
+  console.log(command);
+  $.ajax({
+    url: "/motorCommand",
+    type: "POST",
+    data: {"command": command}
+});
+}
+</script>
+
+<!-- <form action="/ip" method="post">
+  <input type="text" id="ip" name="ip" placeholder="ip address">
+  <input type="submit" value="Submit">
+</form> -->
+
+<title>Hello from Flask</title>
+{% if ipInput %}
+  <h1>Interacting with: {{ ipInput }}!</h1>
+{% else %}
+  <h1>Hello, World!</h1>
+{% endif %}
+
+<div class="grid-container">
+  <button class="grid-item upSpeed" onClick="motorCommand('m1')"></button>
+  <button id="" class="grid-item" onClick="motorCommand('mf')">F</button>
+  <button class="grid-item upSpeed" onClick="motorCommand('m2')"></button>
+  <button class="grid-item" onClick="motorCommand('ml')">L</button>
+  <button class="grid-item" style="background-color:pink" onClick="motorCommand('ms')">S</button>
+  <button class="grid-item" onClick="motorCommand('mr')">R</button>
+  <button class="grid-item downSpeed" onClick="motorCommand('m3')"></button>
+  <button class="grid-item" onClick="motorCommand('mb')">B</button>
+  <button class="grid-item downSpeed" onClick="motorCommand('m4')"></button>
+</div>
+    <div class="container">
+        <label for="left_speed">Left Speed:</label>
+        <input type="number" id="left_speed" min="0" max="100" value="50">
+        <label for="right_speed">Right Speed:</label>
+        <input type="number" id="right_speed" min="0" max="100" value="50">
+    </div>
+
+

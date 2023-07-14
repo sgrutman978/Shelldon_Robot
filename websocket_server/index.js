@@ -18,6 +18,11 @@ ws.on('connection', function connection(wsInner) {
 
   wsInner.on('message', function incoming(message) {
 
+	ws.clients.forEach((client) => {
+          console.log(client.readyState);
+    });
+	  console.log("\n")
+
     // sends the data to all connected clients
     ws.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {

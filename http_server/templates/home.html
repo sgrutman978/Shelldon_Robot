@@ -27,6 +27,16 @@
 
 <script>
  let exampleSocket = new WebSocket("ws://stevengrutman.com:56112");
+
+exampleSocket.onmessage = function(e) {
+  reader = new FileReader();
+  reader.onload = () => {
+    var data = new Uint8Array(reader.result); // Key line!!!
+    console.log(new TextDecoder().decode(data));
+  };
+  reader.readAsArrayBuffer(e.data);
+};
+
 function motorCommand(command){
   console.log("command:" + command)
   exampleSocket.send(command);
@@ -48,5 +58,7 @@ function motorCommand(command){
   <button class="grid-item" onmousedown="motorCommand('backward');" ontouchstart="motorCommand('backward');" onmouseup="motorCommand('stop');" ontouchend="motorCommand('stop');">B</button>
   <button class="grid-item downSpeed" onclick="motorCommand('downr')"></button>
 </div>
+
+<img src="/~/Shelldon_Robot/my_file.jpg"/>
 
 State:<iframe name="myIframe" width="100" height="25" frameBorder="0">

@@ -9,5 +9,6 @@ COPY app.py /home/app
 
 RUN mkdir -p templates
 COPY templates/home.html /home/app/templates
+COPY . .
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=80"]

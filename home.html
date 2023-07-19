@@ -1,0 +1,70 @@
+<!doctype html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      width: 270px;
+      padding: 10px;
+    }
+    .grid-item {
+      /*background-color: rgba(255, 255, 255, 0.8);*/
+      background-color: #2196F3;
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+    .upSpeed{
+      background-color: green;
+    }
+    .downSpeed{
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<script>
+function motorCommand(command, ipInput){
+  console.log("ggg");
+  console.log(command);
+  $.ajax({
+    url: "/motorCommand",
+    type: "POST",
+    data: {"command": command, "ipInput": ipInput}
+});
+}
+</script>
+
+<!-- <form action="/ip" method="post">
+  <input type="text" id="ip" name="ip" placeholder="ip address">
+  <input type="submit" value="Submit">
+</form> -->
+
+<title>Hello from Flask</title>
+{% if ipInput %}
+  <h1>Interacting with: {{ ipInput }}!</h1>
+{% else %}
+  <h1>Hello, World!</h1>
+{% endif %}
+
+<div class="grid-container">
+  <button class="grid-item upSpeed" onClick="motorCommand('m1', '{{ ipInput }}')"></button>
+  <button id="" class="grid-item" onClick="motorCommand('mf', '{{ ipInput }}')">F</button>
+  <button class="grid-item upSpeed" onClick="motorCommand('m3', '{{ ipInput }}')"></button>
+  <button class="grid-item" onClick="motorCommand('ml', '{{ ipInput }}')">L</button>
+  <button class="grid-item" style="background-color:pink" onClick="motorCommand('ms', '{{ ipInput }}')">S</button>
+  <button class="grid-item" onClick="motorCommand('mr', '{{ ipInput }}')">R</button>
+  <button class="grid-item downSpeed" onClick="motorCommand('m2', '{{ ipInput }}')"></button>
+  <button class="grid-item" onClick="motorCommand('mb', '{{ ipInput }}')">B</button>
+  <button class="grid-item downSpeed" onClick="motorCommand('m4', '{{ ipInput }}')"></button>
+</div>
+    <div class="container">
+        <label for="left_speed">Left Speed:</label>
+        <input type="number" id="left_speed" min="0" max="100" value="50">
+        <label for="right_speed">Right Speed:</label>
+        <input type="number" id="right_speed" min="0" max="100" value="50">
+    </div>
+
+

@@ -1,7 +1,9 @@
 import socket 
 
 localIP     = "0.0.0.0"
-localPort   = 3002
+
+localPort   = 3004
+
 bufferSize  = 4096
 
 msgFromServer       = "Hello UDP Client"

@@ -30,8 +30,14 @@ def start_udp_listener():
 
 @app.route('/')
 def index():
-    start_udp_listener()
     return render_template('index.html')
+
+@app.route('/startUDP')
+def startUDP():
+    start_udp_listener()
+    print("hhhhh")
+    return
+
 
 @app.route('/stream')
 def stream():

@@ -6,21 +6,21 @@
 
 #include <Wire.h>
 
-// Define analog input
-#define SIGNAL_PIN A0
-// Floats for ADC voltage & Input voltage
-float adc_voltage = 0.0;
-float in_voltage = 0.0;
-// Floats for resistor values in divider (in ohms)
-float R1 = 30000.0;
-float R2 = 7500.0;
-// Float for Reference Voltage
-float ref_voltage = 5.0;
-// Integer for ADC value
-int adc_value = 0;
+// // Define analog input
+// #define SIGNAL_PIN A0
+// // Floats for ADC voltage & Input voltage
+// float adc_voltage = 0.0;
+// float in_voltage = 0.0;
+// // Floats for resistor values in divider (in ohms)
+// float R1 = 30000.0;
+// float R2 = 7500.0;
+// // Float for Reference Voltage
+// float ref_voltage = 5.0;
+// // Integer for ADC value
+// int adc_value = 0;
 
-const char* ssid = "Connecto_Patronum";//"sgrutman978"; //Enter SSID
-const char* password = "Imustnottelllies1997";//"nimbus1234"; //Enter Password
+const char* ssid = "Mountain_Momma"; //"Connecto_Patronum";//"sgrutman978"; //Enter SSID
+const char* password = "TakeMeHome1997"; //"Imustnottelllies1997";//"nimbus1234"; //Enter Password
 const char* websockets_server_host = "stevengrutman.com"; //Enter server adress
 const uint16_t websockets_server_port = 56112; // Enter server port
 
@@ -34,7 +34,7 @@ int in2 = 14;
 // Motor B connections (LEFT)
 int in3 = 13;
 int in4 = 12;
-int enB = 16;
+int enB = 0;
 
 int speed1 = 210;
 int speed2 = 210;
@@ -61,22 +61,22 @@ void loop() {
     client.poll();
   }
 
-counter += 1;
-if(counter > 50){
-    // Read the Analog Input
-  adc_value = analogRead(SIGNAL_PIN);
-  // Determine voltage at ADC input
-  adc_voltage  = (adc_value * ref_voltage) / 1024.0;
-  // Calculate voltage at divider input
-  in_voltage = adc_voltage / (R2 / (R1 + R2)) ;
-  // Print results to Serial Monitor to 2 decimal places
-  Serial.print("Input Voltage = ");
-  Serial.println(in_voltage, 2);
-  client.send(String(in_voltage));
-  counter = 0;
-}
+// counter += 1;
+// if(counter > 50){
+//     // Read the Analog Input
+//   adc_value = analogRead(SIGNAL_PIN);
+//   // Determine voltage at ADC input
+//   adc_voltage  = (adc_value * ref_voltage) / 1024.0;
+//   // Calculate voltage at divider input
+//   in_voltage = adc_voltage / (R2 / (R1 + R2)) ;
+//   // Print results to Serial Monitor to 2 decimal places
+//   Serial.print("Input Voltage = ");
+//   Serial.println(in_voltage, 2);
+//   client.send(String(in_voltage));
+//   counter = 0;
+// }
 
-  delay(100);
+//   delay(100);
 }
 
 void initMotorPins() {

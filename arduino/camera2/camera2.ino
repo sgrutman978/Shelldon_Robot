@@ -47,8 +47,8 @@ const char *AP_ssid = "arducam_esp8266";
 const char *AP_password = "";
 
 //Station mode you should put your ssid and password
-const char *ssid = "Connecto_Patronum";//"sgrutman978"; // Put your SSID here
-const char *password = "Imustnottelllies1997"; //"nimbus1234"; // Put your PASSWORD here
+const char *ssid = "Mountain_Momma"; //"Connecto_Patronum";//"Connecto_Patronum";//"sgrutman978"; // Put your SSID here
+const char *password = "TakeMeHome1997"; //"Imustnottelllies1997";//"Imustnottelllies1997"; //"nimbus1234"; // Put your PASSWORD here
 
 static const size_t bufferSize = 4096;
 static uint8_t buffer[bufferSize] = {0xFF};

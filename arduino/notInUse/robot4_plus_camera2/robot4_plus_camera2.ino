@@ -7,6 +7,7 @@
 #include <SPI.h>
 #include "memorysaver.h"
 #include <Wire.h>
+#include <ESP8266WebServer.h>
 
 // // Define analog input
 // #define SIGNAL_PIN A0
@@ -21,22 +22,40 @@
 // // Integer for ADC value
 // int adc_value = 0;
 
-const char* ssid = "Connecto_Patronum";//"sgrutman978"; //Enter SSID
-const char* password = "Imustnottelllies1997";//"nimbus1234"; //Enter Password
+const char* ssid = "sgrutman978";//"HYUNDAI-GUEST"; //"sgrutman978";//"Connecto_Patronum"; //Enter SSID
+const char* password = "nimbus1234";//"welcome2020a"; //"Imustnottelllies1997";//"nimbus1234"; //Enter Password
 const char* websockets_server_host = "stevengrutman.com"; //Enter server adress
 const uint16_t websockets_server_port = 56112; // Enter server port
 
 using namespace websockets;
 WebsocketsClient client;
 
+// // Motor A connections (RIGHT)
+// int enA = 1;
+// int in1 = 12;
+// int in2 = 11;
+// // Motor B connections (LEFT)
+// int in3 = 10;
+// int in4 = 9;
+// int enB = 0;
+
+// // Motor A connections (RIGHT)
+// int enA = 10;
+// int in1 = 15;
+// int in2 = 14;
+// // Motor B connections (LEFT)
+// int in3 = 13;
+// int in4 = 12;
+// int enB = 0;
+
 // Motor A connections (RIGHT)
 int enA = 10;
 int in1 = 15;
-int in2 = 14;
+int in2 = 2;
 // Motor B connections (LEFT)
-int in3 = 13;
-int in4 = 12;
-int enB = 16;
+int in3 = 3;
+int in4 = 1;
+int enB = 0;
 
 int speed1 = 210;
 int speed2 = 210;
@@ -312,11 +331,11 @@ void handleNotFound() {
 ///////////////////////////////////////////////////////////////////////////
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);//9600);
   initMotorPins();
-  // wifiSetup(); wifi now gets setup in cameraSetup() below based on wifi type
+  // wifiSetup(); //wifi now gets setup in cameraSetup() below based on wifi type
   //     need to remove obsolete stuff though once settled
-  wsClientSetup();
+  // wsClientSetup();
   cameraSetup();
 }
 
@@ -347,8 +366,8 @@ void loop() {
 //   client.send(String(in_voltage));
 //   counter = 0;
 // }
-
-  delay(100);
+  server.handleClient();
+  // delay(100);
 }
 
 
@@ -360,7 +379,7 @@ void cameraSetup(){
 #else
   Wire.begin();
 #endif
-  Serial.begin(115200);
+  // Serial.begin(115200);
   Serial.println(F("ArduCAM Start!"));
   // set the CS as an output:
   pinMode(CS, OUTPUT);
@@ -478,13 +497,13 @@ void initMotorPins() {
 	pinMode(in1, OUTPUT);
 	pinMode(in2, OUTPUT);
 	pinMode(in3, OUTPUT);
-	pinMode(in4, OUTPUT);
+	// pinMode(in4, OUTPUT);
 	
 	// Turn off motors - Initial state
 	digitalWrite(in1, LOW);
 	digitalWrite(in2, LOW);
 	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
+	// digitalWrite(in4, LOW);
 
   //Set init speed
   analogWrite(enA, speed2); //RIGHT
@@ -492,22 +511,22 @@ void initMotorPins() {
 }
 
 
-// void wifiSetup(){
-//   WiFi.begin(ssid, password); //Connect to your WiFi router
+void wifiSetup(){
+  WiFi.begin(ssid, password); //Connect to your WiFi router
 
-//   // Wait for connection
-//   while (WiFi.status() != WL_CONNECTED) {
-//     delay(500);
-//     Serial.print(".");
-//   }
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
 
-//   //If connection successful show IP address in serial monitor
-//   Serial.print("Connected to ");
-//   Serial.println(ssid);
-//   Serial.print("IP address: ");
-//   Serial.println(WiFi.localIP());  //IP address assigned to your ESP
-//   Serial.println("Connected to Wifi");
-// }
+  //If connection successful show IP address in serial monitor
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());  //IP address assigned to your ESP
+  Serial.println("Connected to Wifi");
+}
 
 
 void wsClientSetup(){
